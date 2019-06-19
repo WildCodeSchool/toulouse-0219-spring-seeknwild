@@ -1,20 +1,17 @@
 package fr.wildcodeschool.seeknwild.Model;
 
-import sun.util.resources.Bundles;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.List;
 
 @Entity
-public class User {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_user;
+    private Long idUser;
 
     @NotNull
     @NotEmpty
@@ -28,15 +25,32 @@ public class User {
     @NotEmpty
     private String email;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Adventure> adventures;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Picture> pictures;
+
+    @OneToOne(mappedBy = "user")
+    private UserAdventure userAdventure;
+
+    public UserAdventure getUserAdventure() {
+        return userAdventure;
+    }
+
+    public void setUserAdventure(UserAdventure userAdventure) {
+        this.userAdventure = userAdventure;
+    }
+
     public User() {
     }
 
-    public Long getId_user() {
-        return id_user;
+    public Long getIdUser() {
+        return idUser;
     }
 
-    public void setId_user(Long id_user){
-        this.id_user = id_user;
+    public void setIdUser(Long idUser) {
+        this.idUser = idUser;
     }
 
     public String getPseudo() {
@@ -61,5 +75,21 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Adventure> getAdventures() {
+        return adventures;
+    }
+
+    public void setAdventures(List<Adventure> adventures) {
+        this.adventures = adventures;
+    }
+
+    public List<Picture> getPictures() {
+        return pictures;
+    }
+
+    public void setPictures(List<Picture> pictures) {
+        this.pictures = pictures;
     }
 }

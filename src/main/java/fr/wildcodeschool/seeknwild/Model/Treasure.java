@@ -1,19 +1,20 @@
 package fr.wildcodeschool.seeknwild.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Treasure implements Serializable {
 
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
-    private Long id_treasure;
+    private Long idTreasure;
 
     @NotNull
     @NotEmpty
@@ -21,26 +22,41 @@ public class Treasure implements Serializable {
 
     @NotNull
     @NotEmpty
-    private Double lat_treasure;
+    private Double latTreasure;
 
     @NotNull
     @NotEmpty
-    private Double long_treasure;
+    private Double longTreasure;
 
     @NotNull
     @NotEmpty
-    private String picture_treasure;
+    private String pictureTreasure;
+
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    @JsonIgnore
+    private Adventure adventure;
+
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
+    @JoinTable(name = "userAdventureTreasure",
+            joinColumns = {@JoinColumn(name = "idUserAdventure")},
+            inverseJoinColumns = {@JoinColumn(name = "idTreasure")})
+    private List<UserAdventure> userAdventures = new ArrayList<>();
 
     public Treasure() {
 
     }
 
-    public Long getId_treasure() {
-        return id_treasure;
+    public Long getIdTreasure() {
+        return idTreasure;
     }
 
-    public void setId_treasure(Long id_treasure) {
-        this.id_treasure = id_treasure;
+    public void setIdTreasure(Long idTreasure) {
+        this.idTreasure = idTreasure;
     }
 
     public String getDescription() {
@@ -51,27 +67,43 @@ public class Treasure implements Serializable {
         this.description = description;
     }
 
-    public Double getLat_treasure() {
-        return lat_treasure;
+    public Double getLatTreasure() {
+        return latTreasure;
     }
 
-    public void setLat_treasure(Double lat_treasure) {
-        this.lat_treasure = lat_treasure;
+    public void setLatTreasure(Double latTreasure) {
+        this.latTreasure = latTreasure;
     }
 
-    public Double getLong_treasure() {
-        return long_treasure;
+    public Double getLongTreasure() {
+        return longTreasure;
     }
 
-    public void setLong_treasure(Double long_treasure) {
-        this.long_treasure = long_treasure;
+    public void setLongTreasure(Double longTreasure) {
+        this.longTreasure = longTreasure;
     }
 
-    public String getPicture_treasure() {
-        return picture_treasure;
+    public String getPictureTreasure() {
+        return pictureTreasure;
     }
 
-    public void setPicture_treasure(String picture_treasure) {
-        this.picture_treasure = picture_treasure;
+    public void setPictureTreasure(String pictureTreasure) {
+        this.pictureTreasure = pictureTreasure;
+    }
+
+    public Adventure getAdventure() {
+        return adventure;
+    }
+
+    public void setAdventure(Adventure adventure) {
+        this.adventure = adventure;
+    }
+
+    public List<UserAdventure> getUserAdventures() {
+        return userAdventures;
+    }
+
+    public void setUserAdventures(List<UserAdventure> userAdventures) {
+        this.userAdventures = userAdventures;
     }
 }

@@ -1,18 +1,19 @@
 package fr.wildcodeschool.seeknwild.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.List;
 
 @Entity
-public class Adventure {
+public class Adventure implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_adventure;
+    private Long idAdventure;
 
     @NotNull
     @NotEmpty
@@ -34,15 +35,34 @@ public class Adventure {
     @NotEmpty
     private String adventure_picture;
 
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    @JsonIgnore
+    private User user;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "adventure")
+    private List<Treasure> treasures;
+
+    @OneToOne(mappedBy = "adventure")
+    private UserAdventure userAdventure;
+
+    public UserAdventure getUserAdventure() {
+        return userAdventure;
+    }
+
+    public void setUserAdventure(UserAdventure userAdventure) {
+        this.userAdventure = userAdventure;
+    }
+
     public Adventure() {
     }
 
-    public Long getId_adventure() {
-        return id_adventure;
+    public Long getIdAdventure() {
+        return idAdventure;
     }
 
-    public void setId_adventure(Long id_adventure) {
-        this.id_adventure = id_adventure;
+    public void setIdAdventure(Long idAdventure) {
+        this.idAdventure = idAdventure;
     }
 
     public String getTitle() {
@@ -83,5 +103,21 @@ public class Adventure {
 
     public void setAdventure_picture(String adventure_picture) {
         this.adventure_picture = adventure_picture;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<Treasure> getTreasures() {
+        return treasures;
+    }
+
+    public void setTreasures(List<Treasure> treasures) {
+        this.treasures = treasures;
     }
 }

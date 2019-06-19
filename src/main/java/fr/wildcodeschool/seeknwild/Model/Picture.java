@@ -1,9 +1,8 @@
 package fr.wildcodeschool.seeknwild.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -13,29 +12,44 @@ public class Picture implements Serializable {
 
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
-    private Long id_picture;
+    private Long idPicture;
 
     @NotNull
     @NotEmpty
-    private String url_picture;
+    private String urlPicture;
+
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    @JsonIgnore
+    private User user;
 
     public Picture () {
 
     }
 
-    public Long getId_picture() {
-        return id_picture;
+    public Long getIdPicture() {
+        return idPicture;
     }
 
-    public void setId_picture(Long id_picture) {
-        this.id_picture = id_picture;
+    public void setIdPicture(Long idPicture) {
+        this.idPicture = idPicture;
     }
 
-    public String getUrl_picture() {
-        return url_picture;
+    public String getUrlPicture() {
+        return urlPicture;
     }
 
-    public void setUrl_picture(String url_picture) {
-        this.url_picture = url_picture;
+    public void setUrlPicture(String urlPicture) {
+        this.urlPicture = urlPicture;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+
 }
