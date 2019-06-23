@@ -14,7 +14,7 @@ public class UserController {
     private UserRepository userRepository;
 
     @GetMapping("/user")
-    public List<User> read( ) {
+    public List<User> read() {
         return userRepository.findAll();
     }
 
@@ -47,6 +47,4 @@ public class UserController {
     public void delete(@PathVariable Long userId) {
         userRepository.deleteById(userId);
     }
-
-
 }
