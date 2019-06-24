@@ -21,9 +21,9 @@ public class UserAdventureController {
         return userAdventureRepository.save(userAdventure);
     }
 
-    @PutMapping("/userAdventure/{userAdventureId}/treasure/{treasureId}")
+    @PutMapping("/treasure/{treasureId}/userAdventure/{userAdventureId}")
     public UserAdventure map(@PathVariable Long userAdventureId,
-                            @PathVariable Long treasureId) {
+                             @PathVariable Long treasureId) {
         Treasure treasure = treasureRepository.findById(treasureId).get();
         UserAdventure userAdventure = userAdventureRepository.findById(userAdventureId).get();
         userAdventure.getTreasures().add(treasure);

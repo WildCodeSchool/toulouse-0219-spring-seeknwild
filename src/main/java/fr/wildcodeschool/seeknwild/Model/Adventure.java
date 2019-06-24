@@ -23,12 +23,8 @@ public class Adventure implements Serializable {
     @NotEmpty
     private String description;
 
-    @NotNull
-    @NotEmpty
     private Double distance;
 
-    @NotNull
-    @NotEmpty
     private Double rate;
 
     @NotNull
@@ -46,15 +42,15 @@ public class Adventure implements Serializable {
     @OneToOne(mappedBy = "adventure")
     private UserAdventure userAdventure;
 
+    public Adventure() {
+    }
+
     public UserAdventure getUserAdventure() {
         return userAdventure;
     }
 
     public void setUserAdventure(UserAdventure userAdventure) {
         this.userAdventure = userAdventure;
-    }
-
-    public Adventure() {
     }
 
     public Long getIdAdventure() {

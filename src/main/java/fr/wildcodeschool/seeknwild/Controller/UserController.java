@@ -28,7 +28,7 @@ public class UserController {
         return userRepository.save(user);
     }
 
-    @PutMapping("/user/{id}")
+    @PutMapping("/user/{userId}")
     public User update(@PathVariable Long userId, @RequestBody User user) {
         User userToUpdate = userRepository.findById(userId).get();
         if (user.getPseudo() != null) {

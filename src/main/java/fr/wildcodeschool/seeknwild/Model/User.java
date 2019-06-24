@@ -34,15 +34,15 @@ public class User implements Serializable {
     @OneToOne(mappedBy = "user")
     private UserAdventure userAdventure;
 
+    public User() {
+    }
+
     public UserAdventure getUserAdventure() {
         return userAdventure;
     }
 
     public void setUserAdventure(UserAdventure userAdventure) {
         this.userAdventure = userAdventure;
-    }
-
-    public User() {
     }
 
     public Long getIdUser() {

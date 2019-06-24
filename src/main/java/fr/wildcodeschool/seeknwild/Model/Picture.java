@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class Picture implements Serializable {
 
     @Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPicture;
 
     @NotNull
@@ -23,9 +23,7 @@ public class Picture implements Serializable {
     @JsonIgnore
     private User user;
 
-    public Picture () {
-
-    }
+    public Picture() {}
 
     public Long getIdPicture() {
         return idPicture;

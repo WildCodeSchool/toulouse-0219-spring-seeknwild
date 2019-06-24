@@ -19,8 +19,8 @@ public class AdventureController {
     private UserRepository userRepository;
 
     @PostMapping("/user/{userId}/adventure")
-    public Adventure create( @PathVariable Long userId,
-                             @RequestBody Adventure adventure) {
+    public Adventure create(@PathVariable Long userId,
+                            @RequestBody Adventure adventure) {
         User user = userRepository.findById(userId).get();
         adventure.setUser(user);
         return adventureRepository.save(adventure);
@@ -60,7 +60,7 @@ public class AdventureController {
 
     @DeleteMapping("/adventure/{adventureId}")
     public void delete(@PathVariable Long adventureId) {
-         adventureRepository.deleteById(adventureId);
+        adventureRepository.deleteById(adventureId);
     }
 
 

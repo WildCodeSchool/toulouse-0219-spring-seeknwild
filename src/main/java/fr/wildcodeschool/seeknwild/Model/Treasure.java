@@ -13,19 +13,15 @@ import java.util.List;
 public class Treasure implements Serializable {
 
     @Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idTreasure;
 
     @NotNull
     @NotEmpty
     private String description;
 
-    @NotNull
-    @NotEmpty
     private Double latTreasure;
 
-    @NotNull
-    @NotEmpty
     private Double longTreasure;
 
     @NotNull
