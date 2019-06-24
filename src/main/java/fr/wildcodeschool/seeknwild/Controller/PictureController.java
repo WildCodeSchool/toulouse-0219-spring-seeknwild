@@ -50,5 +50,4 @@ public class PictureController {
     public void delete(@PathVariable Long pictureId) {
         pictureRepository.deleteById(pictureId);
     }
-
 }

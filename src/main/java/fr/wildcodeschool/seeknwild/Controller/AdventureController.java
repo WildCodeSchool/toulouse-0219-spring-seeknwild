@@ -62,6 +62,4 @@ public class AdventureController {
     public void delete(@PathVariable Long adventureId) {
         adventureRepository.deleteById(adventureId);
     }
-
-
 }

@@ -75,7 +75,6 @@ public class TreasureController {
         userAdventureRepository.save(userAdventure);
         return treasureRepository.save(treasure);
     }
-
 }
 
 
