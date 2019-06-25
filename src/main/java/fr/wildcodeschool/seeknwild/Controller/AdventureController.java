@@ -52,8 +52,8 @@ public class AdventureController {
         if (adventure.getRate() != null) {
             adventureToUpdate.setRate(adventure.getRate());
         }
-        if (adventure.getAdventure_picture() != null) {
-            adventureToUpdate.setAdventure_picture(adventure.getAdventure_picture());
+        if (adventure.getAdventurePicture() != null) {
+            adventureToUpdate.setAdventurePicture(adventure.getAdventurePicture());
         }
         return adventureRepository.save(adventureToUpdate);
     }

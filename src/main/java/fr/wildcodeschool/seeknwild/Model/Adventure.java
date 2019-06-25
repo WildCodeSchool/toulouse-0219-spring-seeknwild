@@ -27,9 +27,7 @@ public class Adventure implements Serializable {
 
     private Double rate;
 
-    @NotNull
-    @NotEmpty
-    private String adventure_picture;
+    private String adventurePicture;
 
     @ManyToOne
     @JoinColumn(nullable = false)
@@ -93,12 +91,12 @@ public class Adventure implements Serializable {
         this.rate = rate;
     }
 
-    public String getAdventure_picture() {
-        return adventure_picture;
+    public String getAdventurePicture() {
+        return adventurePicture;
     }
 
-    public void setAdventure_picture(String adventure_picture) {
-        this.adventure_picture = adventure_picture;
+    public void setAdventurePicture(String adventurePicture) {
+        this.adventurePicture = adventurePicture;
     }
 
     public User getUser() {
