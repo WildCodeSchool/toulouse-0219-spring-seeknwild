@@ -29,6 +29,8 @@ public class Adventure implements Serializable {
 
     private String adventurePicture;
 
+    private boolean published;
+
     @ManyToOne
     @JoinColumn(nullable = false)
     @JsonIgnore
@@ -113,5 +115,13 @@ public class Adventure implements Serializable {
 
     public void setTreasures(List<Treasure> treasures) {
         this.treasures = treasures;
+    }
+
+    public boolean isPublished() {
+        return published;
+    }
+
+    public void setPublished(boolean published) {
+        this.published = published;
     }
 }
