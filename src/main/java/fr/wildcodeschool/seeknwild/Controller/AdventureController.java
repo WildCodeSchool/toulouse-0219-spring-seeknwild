@@ -55,11 +55,21 @@ public class AdventureController {
         if (adventure.getAdventurePicture() != null) {
             adventureToUpdate.setAdventurePicture(adventure.getAdventurePicture());
         }
+
+        adventureToUpdate.setPublished(adventure.isPublished());
         return adventureRepository.save(adventureToUpdate);
     }
 
     @DeleteMapping("/adventure/{adventureId}")
     public void delete(@PathVariable Long adventureId) {
         adventureRepository.deleteById(adventureId);
+    }
+
+    @PutMapping("/adventure/{adventureId}/published")
+    public Adventure published(@PathVariable Long adventureId) {
+        Adventure adventure = adventureRepository.findById(adventureId).get();
+        adventure.setPublished(true);
+        return adventureRepository.save(adventure);
+
     }
 }
