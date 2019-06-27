@@ -34,7 +34,6 @@ public class UserAdventure implements Serializable {
     public UserAdventure() {
     }
 
-
     public Long getIdUserAdventure() {
         return idUserAdventure;
     }

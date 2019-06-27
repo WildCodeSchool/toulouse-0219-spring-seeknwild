@@ -24,8 +24,6 @@ public class Treasure implements Serializable {
 
     private Double longTreasure;
 
-    @NotNull
-    @NotEmpty
     private String pictureTreasure;
 
     @ManyToOne
