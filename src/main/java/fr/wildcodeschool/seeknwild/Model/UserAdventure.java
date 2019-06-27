@@ -14,6 +14,8 @@ public class UserAdventure implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUserAdventure;
 
+    private boolean alreadyDone;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idUser", referencedColumnName = "idUser")
     private User user;
@@ -64,5 +66,13 @@ public class UserAdventure implements Serializable {
 
     public void setTreasures(List<Treasure> treasures) {
         this.treasures = treasures;
+    }
+
+    public boolean isAlreadyDone() {
+        return alreadyDone;
+    }
+
+    public void setAlreadyDone(boolean alreadyDone) {
+        this.alreadyDone = alreadyDone;
     }
 }

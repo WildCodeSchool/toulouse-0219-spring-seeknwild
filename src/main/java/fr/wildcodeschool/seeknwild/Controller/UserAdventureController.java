@@ -1,6 +1,7 @@
 package fr.wildcodeschool.seeknwild.Controller;
 
 import fr.wildcodeschool.seeknwild.Model.Treasure;
+import fr.wildcodeschool.seeknwild.Model.User;
 import fr.wildcodeschool.seeknwild.Model.UserAdventure;
 import fr.wildcodeschool.seeknwild.Repository.TreasureRepository;
 import fr.wildcodeschool.seeknwild.Repository.UserAdventureRepository;
@@ -40,5 +41,10 @@ public class UserAdventureController {
         treasure.getUserAdventures().add(userAdventure);
         treasureRepository.save(treasure);
         return userAdventureRepository.save(userAdventure);
+    }
+
+    @GetMapping("/userAdventure/{userAdventureId}")
+    public UserAdventure read(@PathVariable Long userAdventureId) {
+        return userAdventureRepository.findById(userAdventureId).get();
     }
 }
