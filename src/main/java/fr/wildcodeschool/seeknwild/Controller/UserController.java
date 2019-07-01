@@ -18,10 +18,19 @@ public class UserController {
         return userRepository.findAll();
     }
 
-    @GetMapping("user/{userId}")
+    @GetMapping("/user/{userId}")
     public User read(@PathVariable Long userId) {
         return userRepository.findById(userId).get();
     }
+
+    @PostMapping("/user/search")
+    public User search(@RequestBody User user) {
+        User userFromDb = userRepository.findUserByEmail(user.getEmail());
+        if (user.getPassword().equals(userFromDb.getPassword())) {
+            return userFromDb;
+        } return null;
+    }
+
 
     @PostMapping("/user")
     public User create(@RequestBody User user) {
