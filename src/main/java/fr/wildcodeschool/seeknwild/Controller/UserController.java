@@ -31,7 +31,6 @@ public class UserController {
         } return null;
     }
 
-
     @PostMapping("/user")
     public User create(@RequestBody User user) {
         return userRepository.save(user);
