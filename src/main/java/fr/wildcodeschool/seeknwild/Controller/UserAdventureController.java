@@ -2,10 +2,12 @@ package fr.wildcodeschool.seeknwild.Controller;
 
 import fr.wildcodeschool.seeknwild.Model.Adventure;
 import fr.wildcodeschool.seeknwild.Model.Treasure;
+import fr.wildcodeschool.seeknwild.Model.User;
 import fr.wildcodeschool.seeknwild.Model.UserAdventure;
 import fr.wildcodeschool.seeknwild.Repository.AdventureRepository;
 import fr.wildcodeschool.seeknwild.Repository.TreasureRepository;
 import fr.wildcodeschool.seeknwild.Repository.UserAdventureRepository;
+import fr.wildcodeschool.seeknwild.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +24,9 @@ public class UserAdventureController {
 
     @Autowired
     private AdventureRepository adventureRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @PostMapping("/userAdventure")
     public UserAdventure create(@RequestBody UserAdventure userAdventure) {
@@ -59,24 +64,19 @@ public class UserAdventureController {
         return userAdventureRepository.save(userAdventure);
     }
 
-    @PutMapping("adventure/{adventureId}/userAdventure/{userAdventureId}")
-    public UserAdventure map(@PathVariable Long userAdventureId,
-                             @PathVariable Long adventureId) {
+    @PostMapping("user/{userId}/userAdventure/{adventureId}")
+    public UserAdventure startAdventure(@PathVariable Long userId,
+                               @PathVariable Long adventureId) {
         Adventure adventure = adventureRepository.findById(adventureId).get();
-        UserAdventure userAdventure = userAdventureRepository.findById(userAdventureId).get();
+        User user = userRepository.findById(userId).get();
+        UserAdventure userAdventure = new UserAdventure();
         userAdventure.setAdventure(adventure);
-        adventure.setUserAdventure(userAdventure);
-        adventureRepository.save(adventure);
-        return userAdventureRepository.save(userAdventure);
-    }
-
-    @PostMapping("/userAdventure/adventure/{adventureId}")
-    public UserAdventure createAndMap(@PathVariable Long adventureId,
-                                      @RequestBody UserAdventure userAdventure) {
-        Adventure adventure = adventureRepository.findById(adventureId).get();
-        userAdventure.setAdventure(adventure);
-        adventure.setUserAdventure(userAdventure);
-        adventureRepository.save(adventure);
-        return userAdventureRepository.save(userAdventure);
+        userAdventure.setUser(user);
+        userAdventure.setNbTreasure(0);
+        userAdventure.setCurrentTreasure(adventure.getTreasures().get(0).getIdTreasure());
+        userAdventure = userAdventureRepository.save(userAdventure);
+        user.setUserAdventureId(userAdventure.getIdUserAdventure());
+        userRepository.save(user);
+        return userAdventure;
     }
 }

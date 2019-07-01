@@ -39,18 +39,7 @@ public class Adventure implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "adventure")
     private List<Treasure> treasures;
 
-    @OneToOne(mappedBy = "adventure")
-    private UserAdventure userAdventure;
-
     public Adventure() {
-    }
-
-    public UserAdventure getUserAdventure() {
-        return userAdventure;
-    }
-
-    public void setUserAdventure(UserAdventure userAdventure) {
-        this.userAdventure = userAdventure;
     }
 
     public Long getIdAdventure() {

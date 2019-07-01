@@ -31,18 +31,10 @@ public class User implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Picture> pictures;
 
-    @OneToOne(mappedBy = "user")
-    private UserAdventure userAdventure;
+    //@OneToOne(mappedBy = "user")
+    private Long userAdventureId;
 
     public User() {
-    }
-
-    public UserAdventure getUserAdventure() {
-        return userAdventure;
-    }
-
-    public void setUserAdventure(UserAdventure userAdventure) {
-        this.userAdventure = userAdventure;
     }
 
     public Long getIdUser() {
@@ -91,5 +83,13 @@ public class User implements Serializable {
 
     public void setPictures(List<Picture> pictures) {
         this.pictures = pictures;
+    }
+
+    public Long getUserAdventureId() {
+        return userAdventureId;
+    }
+
+    public void setUserAdventureId(Long userAdventureId) {
+        this.userAdventureId = userAdventureId;
     }
 }
