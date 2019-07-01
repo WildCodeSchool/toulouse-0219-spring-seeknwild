@@ -9,6 +9,8 @@ import fr.wildcodeschool.seeknwild.Repository.UserAdventureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class UserAdventureController {
 
@@ -24,6 +26,16 @@ public class UserAdventureController {
     @PostMapping("/userAdventure")
     public UserAdventure create(@RequestBody UserAdventure userAdventure) {
         return userAdventureRepository.save(userAdventure);
+    }
+
+    @GetMapping("/userAdventure")
+    public List<UserAdventure> read() {
+        return userAdventureRepository.findAll();
+    }
+
+    @GetMapping("/userAdventure/{userAdventureId}")
+    public UserAdventure read(@PathVariable Long userAdventureId) {
+        return userAdventureRepository.findById(userAdventureId).get();
     }
 
     @PutMapping("/treasure/{treasureId}/userAdventure/{userAdventureId}")
