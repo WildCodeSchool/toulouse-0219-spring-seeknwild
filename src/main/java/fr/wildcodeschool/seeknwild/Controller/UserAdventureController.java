@@ -53,6 +53,19 @@ public class UserAdventureController {
         treasureRepository.save(treasure);
         return userAdventureRepository.save(userAdventure);
     }
+    @PutMapping("user/{userId}/{userAdventureId}/{adventureId}")
+    public UserAdventure updateUserAdventure(@PathVariable Long userAdventureId,
+                                             @PathVariable Long userId,
+                                             @PathVariable Long adventureId) {
+        Adventure adventure = adventureRepository.findById(adventureId).get();
+        UserAdventure userAdventure = userAdventureRepository.findById(userAdventureId).get();
+        User user = userRepository.findById(userId).get();
+        userAdventure.setAdventure(adventure);
+        userAdventure = userAdventureRepository.save(userAdventure);
+        user.setUserAdventureId(userAdventure.getIdUserAdventure());
+        userRepository.save(user);
+        return userAdventure;
+    }
 
     @PostMapping("/userAdventure/treasure/{treasureId}")
     public UserAdventure createAndMapByTreasure(@PathVariable Long treasureId,
@@ -73,7 +86,7 @@ public class UserAdventureController {
         userAdventure.setAdventure(adventure);
         userAdventure.setUser(user);
         userAdventure.setNbTreasure(0);
-        userAdventure.setCurrentTreasure(adventure.getTreasures().get(0).getIdTreasure());
+        userAdventure.setCurrentTreasure(0);
         userAdventure = userAdventureRepository.save(userAdventure);
         user.setUserAdventureId(userAdventure.getIdUserAdventure());
         userRepository.save(user);
