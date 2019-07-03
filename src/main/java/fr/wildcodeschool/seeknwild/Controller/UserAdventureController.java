@@ -53,6 +53,7 @@ public class UserAdventureController {
         treasureRepository.save(treasure);
         return userAdventureRepository.save(userAdventure);
     }
+
     @PutMapping("user/{userId}/{userAdventureId}/{adventureId}")
     public UserAdventure updateUserAdventure(@PathVariable Long userAdventureId,
                                              @PathVariable Long userId,
