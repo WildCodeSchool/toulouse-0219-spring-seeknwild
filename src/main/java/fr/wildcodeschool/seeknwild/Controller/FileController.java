@@ -1,5 +1,7 @@
 package fr.wildcodeschool.seeknwild.Controller;
 
+import fr.wildcodeschool.seeknwild.Model.Adventure;
+import fr.wildcodeschool.seeknwild.Repository.AdventureRepository;
 import fr.wildcodeschool.seeknwild.Service.FileStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -18,6 +20,27 @@ public class FileController {
 
     @Autowired
     private FileStorageService fileStorageService;
+
+    @Autowired
+    private AdventureRepository adventureRepository;
+
+    @PostMapping("/adventure/{idAdventure}/picture")
+    public String uploadFile(@PathVariable Long idAdventure,
+            @RequestParam("file") MultipartFile file) {
+
+        Adventure adventure = adventureRepository.findById(idAdventure).get();
+
+        String fileName = fileStorageService.storeFile(file);
+
+        String filePath = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/downloadFile/")
+                .path(fileName)
+                .toUriString();
+        adventure.setAdventurePicture(filePath);
+        adventureRepository.save(adventure);
+
+        return filePath;
+    }
 
     @PostMapping("/uploadFile")
     public String uploadFile(@RequestParam("file") MultipartFile file) {
