@@ -15,7 +15,7 @@ public class UserAdventure implements Serializable {
     private Long idUserAdventure;
 
     private int nbTreasure;
-    private Long currentTreasure;
+    private int currentTreasure;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idUser", referencedColumnName = "idUser")
@@ -77,11 +77,11 @@ public class UserAdventure implements Serializable {
         this.nbTreasure = nbTreasure;
     }
 
-    public Long getCurrentTreasure() {
+    public int getCurrentTreasure() {
         return currentTreasure;
     }
 
-    public void setCurrentTreasure(Long currentTreasure) {
+    public void setCurrentTreasure(int currentTreasure) {
         this.currentTreasure = currentTreasure;
     }
 }

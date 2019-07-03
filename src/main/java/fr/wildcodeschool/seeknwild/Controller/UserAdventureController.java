@@ -54,6 +54,22 @@ public class UserAdventureController {
         return userAdventureRepository.save(userAdventure);
     }
 
+    @PutMapping("user/{userId}/{userAdventureId}/{found}")
+    public UserAdventure updateUserAdventure(@PathVariable Long userId,
+                                             @PathVariable Long userAdventureId,
+                                             @PathVariable Boolean found) {
+        UserAdventure userAdventure = userAdventureRepository.findById(userAdventureId).get();
+        User user = userRepository.findById(userId).get();
+        userAdventure.setCurrentTreasure(userAdventure.getCurrentTreasure() + 1);
+        if (found) {
+            userAdventure.setNbTreasure(userAdventure.getNbTreasure() + 1);
+        }
+        userAdventure = userAdventureRepository.save(userAdventure);
+        user.setUserAdventureId(userAdventure.getIdUserAdventure());
+        userRepository.save(user);
+        return userAdventure;
+    }
+
     @PostMapping("/userAdventure/treasure/{treasureId}")
     public UserAdventure createAndMapByTreasure(@PathVariable Long treasureId,
                                                 @RequestBody UserAdventure userAdventure) {
@@ -66,14 +82,14 @@ public class UserAdventureController {
 
     @PostMapping("user/{userId}/userAdventure/{adventureId}")
     public UserAdventure startAdventure(@PathVariable Long userId,
-                               @PathVariable Long adventureId) {
+                                        @PathVariable Long adventureId) {
         Adventure adventure = adventureRepository.findById(adventureId).get();
         User user = userRepository.findById(userId).get();
         UserAdventure userAdventure = new UserAdventure();
         userAdventure.setAdventure(adventure);
         userAdventure.setUser(user);
         userAdventure.setNbTreasure(0);
-        userAdventure.setCurrentTreasure(adventure.getTreasures().get(0).getIdTreasure());
+        userAdventure.setCurrentTreasure(0);
         userAdventure = userAdventureRepository.save(userAdventure);
         user.setUserAdventureId(userAdventure.getIdUserAdventure());
         userRepository.save(user);
